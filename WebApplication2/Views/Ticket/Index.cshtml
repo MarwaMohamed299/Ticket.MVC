@@ -1,0 +1,57 @@
+﻿
+@model TicketAddVM
+@using WebApplication2.Models.models
+@using WebApplication2.Models.view
+@{
+    List<SelectListItem> Departments = ViewData[Constant.Departments] as List<SelectListItem> ?? new();
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Add Ticket</div>
+                <div class="card-body">
+                    <form asp-action="Add" method="post">
+                        <div class="form-group">
+                            <label asp-for="id" class="control-label">Ticket Number</label>
+                            <input asp-for="id" class="form-control" />
+                            <span class="text-danger" asp-validation-for="id"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label">Description</label>
+                            <input asp-for="Description" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Description"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input asp-for="IsClosed" class="form-check-input" />
+                                <label asp-for="IsClosed" class="form-check-label">Is Closed</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Department_id" class="control-label">Department</label>
+                            <select asp-for="Department_id" asp-items="Departments" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AwardIds" class="control-label">Awards</label>
+                            <select asp-for="AwardIds" asp-items="@ViewBag.Award" class="form-control" multiple></select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Severity_id" class="control-label">Severity</label>
+                            <select asp-for="Severity_id" asp-items="Html.GetEnumSelectList<Severity>()" class="form-control"></select>
+                            <span class="text-danger" asp-validation-for="Severity"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
